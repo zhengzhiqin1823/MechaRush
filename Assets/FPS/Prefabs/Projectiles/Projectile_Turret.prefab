@@ -79,6 +79,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  explosion: 0
+  exp: {fileID: 3722190364385511442, guid: 1d60195c7d6072b438b818ef9cb182af, type: 3}
 --- !u!54 &3091813631682082625
 Rigidbody:
   m_ObjectHideFlags: 0

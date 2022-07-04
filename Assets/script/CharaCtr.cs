@@ -50,8 +50,9 @@ public class CharaCtr : MonoBehaviour
     public GameObject bullet4;
     public int bulOp;//1-4表达子弹1-4；
     public GameObject aim1;
-    public int maxfiretime;
-    public int firetime;//动画与生成子弹之间的延迟
+    public float maxfiretime;
+    public float maxfiretime4= 0.3f;
+    public float firetime;//动画与生成子弹之间的延迟
     public float anglelimit = 20;
     void Start()
     {
@@ -80,7 +81,7 @@ public class CharaCtr : MonoBehaviour
         main.transform.SetParent(this.transform);
         main.transform.position = this.transform.position + offset;
         mousesense = 2f;
-        maxfiretime = 70;
+        maxfiretime = 0.10f;
         firetime = 0;
         bulOp = 1;
         isinvicible = false;
@@ -132,12 +133,12 @@ public class CharaCtr : MonoBehaviour
                 float ry = Random.Range(0, 0.06f);
                 vector3 = new Vector3(rx, ry);
             }
-            firetime++;
+            firetime+=Time.deltaTime;
             switch (bulOp)
             {
                 case 1:
                     {
-                        if (buttlenum % 10 == 0 && firetime > maxfiretime)
+                        if (firetime > maxfiretime)
                         {
                             var b = Instantiate(bullet1);
                             b.GetComponent<bulletDamage>().damage = 10;
@@ -149,7 +150,7 @@ public class CharaCtr : MonoBehaviour
                     }
                 case 2:
                     {
-                        if (buttlenum % 40 == 0 && firetime > maxfiretime)
+                        if (firetime > maxfiretime)
                         {
                             var b = Instantiate(bullet2);
                             b.GetComponent<bulletDamage>().damage = 5;
@@ -162,25 +163,27 @@ public class CharaCtr : MonoBehaviour
                     }
                 case 3:
                     {
-                        if (buttlenum % 40 == 0 && firetime > maxfiretime)
+                        if (firetime > maxfiretime)
                         {
                             var b = Instantiate(bullet3);
                             b.GetComponent<bulletDamage>().damage = 10;
                             b.transform.position = aim1.transform.position;
                             b.transform.rotation = this.transform.rotation;
-                            b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 10;
+                            b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 100;
                         }
                         break;
                     }
                 case 4:
                     {
-                        if (buttlenum % 100 == 0 && firetime > maxfiretime)
+                        if (firetime > maxfiretime4)
                         {
+                            firetime = 0;
                             var b = Instantiate(bullet4);
                             b.transform.position = aim1.transform.position;
                             b.GetComponent<bulletDamage>().damage = 30;
+                            b.GetComponent<bulletDamage>().explosion = true;
                             b.transform.rotation = this.transform.rotation;
-                            b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 10;
+                            b.GetComponent<Rigidbody>().velocity = (transform.forward + Vector3.up*0.5f + vector3) * 15;
                         }
                         break;
                     }
@@ -219,10 +222,7 @@ public class CharaCtr : MonoBehaviour
         ani.SetBool("move", move);
         ani.SetBool("movex", movex);
         ani.SetBool("run", run);
-        Debug.Log("shoot=" + shoot);
-        Debug.Log("direct=" + direct);
-        Debug.Log("move=" + move);
-        Debug.Log("run=" + run);
+
         if (isinvicible)
         {
             hpdelay++;

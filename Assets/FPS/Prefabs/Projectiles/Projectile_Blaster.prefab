@@ -95,6 +95,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  explosion: 0
+  exp: {fileID: 3722190364385511442, guid: 1d60195c7d6072b438b818ef9cb182af, type: 3}
 --- !u!65 &6490700268012982473
 BoxCollider:
   m_ObjectHideFlags: 0
