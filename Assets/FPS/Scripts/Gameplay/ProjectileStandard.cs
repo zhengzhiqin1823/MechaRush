@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Unity.FPS.Game;
 using UnityEngine;
-
 namespace Unity.FPS.Gameplay
 {
     public class ProjectileStandard : ProjectileBase
@@ -78,7 +77,7 @@ namespace Unity.FPS.Gameplay
 
             m_ProjectileBase.OnShoot += OnShoot;
 
-            Destroy(gameObject, MaxLifeTime);
+           // Destroy(gameObject, MaxLifeTime);
         }
 
         new void OnShoot()
@@ -187,9 +186,7 @@ namespace Unity.FPS.Gameplay
             {
                 AudioUtility.CreateSFX(ImpactSfxClip, point, AudioUtility.AudioGroups.Impact, 1f, 3f);
             }
-
-            // Self Destruct
-            Destroy(this.gameObject);
+         //  Destroy(this.gameObject);
         }
 
 

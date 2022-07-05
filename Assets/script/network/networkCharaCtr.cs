@@ -34,7 +34,7 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
   //  public Camera main;
     public Vector3 offset;
     public Image type;
-    private GameObject mainCam;
+    private GameObject mainCam=null;
     //ÉúÃüÖµ
     private int maxhealth;
     public int health;
@@ -143,8 +143,7 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
                     {
                         if (buttlenum % 10 == 0 && firetime > maxfiretime)
                         {
-                            var b = Instantiate(bullet1);
-                            b.GetComponent<bulletDamage>().damage = 10;
+                            var b = PhotonNetwork.Instantiate("Projectile_Blaster 2", aim1.transform.position, Quaternion.identity, 0);
                             b.transform.position = aim1.transform.position;
                             b.transform.rotation = this.transform.rotation;
                             b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 50;
@@ -155,8 +154,7 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
                     {
                         if (buttlenum % 40 == 0 && firetime > maxfiretime)
                         {
-                            var b = Instantiate(bullet2);
-                            b.GetComponent<bulletDamage>().damage = 5;
+                            var b = PhotonNetwork.Instantiate("Projectile_Hoverbot 2", aim1.transform.position, Quaternion.identity, 0);
                             b.transform.position = aim1.transform.position;
                             b.transform.rotation = this.transform.rotation;
                             b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 50;
@@ -168,8 +166,7 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
                     {
                         if (buttlenum % 40 == 0 && firetime > maxfiretime)
                         {
-                            var b = Instantiate(bullet3);
-                            b.GetComponent<bulletDamage>().damage = 10;
+                            var b = PhotonNetwork.Instantiate("Projectile_Shotgun 2", aim1.transform.position, Quaternion.identity, 0);
                             b.transform.position = aim1.transform.position;
                             b.transform.rotation = this.transform.rotation;
                             b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 10;
@@ -180,9 +177,8 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
                     {
                         if (buttlenum % 100 == 0 && firetime > maxfiretime)
                         {
-                            var b = Instantiate(bullet4);
+                            var b = PhotonNetwork.Instantiate("Projectile_Turret 2", aim1.transform.position, Quaternion.identity, 0);
                             b.transform.position = aim1.transform.position;
-                            b.GetComponent<bulletDamage>().damage = 30;
                             b.transform.rotation = this.transform.rotation;
                             b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 10;
                         }
@@ -223,10 +219,6 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
         ani.SetBool("move", move);
         ani.SetBool("movex", movex);
         ani.SetBool("run", run);
-        Debug.Log("shoot=" + shoot);
-        Debug.Log("direct=" + direct);
-        Debug.Log("move=" + move);
-        Debug.Log("run=" + run);
         if (isinvicible)
         {
             hpdelay++;
@@ -394,14 +386,18 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
     }
     public void healthChange(int amount)
     {
-        Debug.Log("ok");
+
+        if (!photonView.IsMine) return;
         if (isinvicible) return;
         else
         {
             isinvicible = true;
             hpdelay = 0;
         }
-        health = Mathf.Clamp(health + amount, 0, maxhealth);
+        Debug.Log(health);
+        Debug.Log(amount);
+        health = health + amount;
+        Debug.Log(health);
         hpImgChange();
     }
 }

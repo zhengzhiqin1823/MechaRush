@@ -390,7 +390,6 @@ public class CharaCtr : MonoBehaviour
     }
     public void healthChange(int amount)
     {
-        Debug.Log("ok");
         if (isinvicible) return;
         else
         {

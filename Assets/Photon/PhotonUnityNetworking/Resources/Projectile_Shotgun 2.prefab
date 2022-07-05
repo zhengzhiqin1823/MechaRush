@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 3189362325743353260}
   - component: {fileID: -5995798678947766836}
   - component: {fileID: -2968303204814803664}
+  - component: {fileID: 7888117093786924603}
   m_Layer: 0
   m_Name: Projectile_Shotgun 2
   m_TagString: Untagged
@@ -110,6 +111,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   damage: 0
+  explosion: 0
 --- !u!114 &-5995798678947766836
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -144,10 +146,25 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   observableSearch: 2
-  ObservedComponents: []
+  ObservedComponents:
+  - {fileID: -5995798678947766836}
   sceneViewId: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &7888117093786924603
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3659995153115176983}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c738275dc837be4ab59ed3149512f87, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damage: 0
+  explosion: 0
 --- !u!1 &5564024855854763701
 GameObject:
   m_ObjectHideFlags: 0
