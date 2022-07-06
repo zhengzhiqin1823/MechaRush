@@ -91,6 +91,7 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
+        ShowMouse(false);
         if (!photonView.IsMine)
             return;
         bulletImgChange(5);
@@ -388,4 +389,18 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
         health = health + amount;
         hpImgChange();
     }
+
+    //“˛≤ÿ Û±Í÷∏’Î
+    public void ShowMouse(bool isShow)
+    {
+        if (isShow)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
 }

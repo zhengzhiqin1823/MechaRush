@@ -90,6 +90,7 @@ public class CharaCtr : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        ShowMouse(false);
         bulletImgChange(5);
         hpImgChange();
         if (die || ret)
@@ -399,4 +400,16 @@ public class CharaCtr : MonoBehaviour
         health = Mathf.Clamp(health + amount, 0, maxhealth);
         hpImgChange();
     }
+    public void ShowMouse(bool isShow)
+    {
+        if (isShow)
+        {
+            Cursor.lockState = CursorLockMode.None;
+        }
+        else
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+
 }
