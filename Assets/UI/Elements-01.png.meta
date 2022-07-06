@@ -1105,8 +1105,8 @@ TextureImporter:
       name: Elements-01_34
       rect:
         serializedVersion: 2
-        x: 3386
-        y: 117
+        x: 3398
+        y: 121
         width: 222
         height: 221
       alignment: 0
@@ -1840,13 +1840,13 @@ TextureImporter:
       name: Elements-01_69
       rect:
         serializedVersion: 2
-        x: 1547
-        y: 396
-        width: 485
-        height: 451
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
+        x: 2664
+        y: 465
+        width: 893
+        height: 88
+      alignment: 9
+      pivot: {x: 0.5, y: 0.5125992}
+      border: {x: 0, y: 1, z: 0, w: 0}
       outline: []
       physicsShape: []
       tessellationDetail: 0

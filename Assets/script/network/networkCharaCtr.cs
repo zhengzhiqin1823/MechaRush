@@ -13,8 +13,8 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
     private bool shootDelayr;
     //控制跳跃
     private bool jump;
-    public int jumptimer;
-    public int maxjumptime;
+    public float jumptimer;
+    public float maxjumptime;
     private bool gronded;//是否在地面上
     //控制装弹
     private bool reload;
@@ -31,10 +31,10 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
     private bool run;
     public float mousesense;
     //相机
-  //  public Camera main;
+    //  public Camera main;
     public Vector3 offset;
     public Image type;
-    private GameObject mainCam=null;
+    private GameObject mainCam = null;
     //生命值
     private int maxhealth;
     public int health;
@@ -51,8 +51,8 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
     public GameObject bullet4;
     public int bulOp;//1-4表达子弹1-4；
     public GameObject aim1;
-    public int maxfiretime;
-    public int firetime;//动画与生成子弹之间的延迟
+    public float maxfiretime;
+    public float firetime;//动画与生成子弹之间的延迟
     public float anglelimit = 20;
     void Start()
     {
@@ -62,7 +62,7 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
         shoot = false;
         shootDelayr = false;
         jump = false;
-        maxjumptime = 250;
+        maxjumptime = 0.9f;
         jumptimer = 0;
         reload = false;
         reloadtimer = 0;
@@ -71,9 +71,9 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
         maxbuttlenum = 800;
         speed = 4f;
         run = false;
-        if(photonView.IsMine)
-        mainCam = Camera.main.gameObject;
-        maxhealth = 100;
+        if (photonView.IsMine)
+            mainCam = Camera.main.gameObject;
+        maxhealth = 300;
         health = maxhealth;
         die = false;
         ret = false;
@@ -82,7 +82,7 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
         mainCam.transform.SetParent(this.transform);
         mainCam.transform.position = this.transform.position + offset;
         mousesense = 2f;
-        maxfiretime = 70;
+        maxfiretime = 0.2f;
         firetime = 0;
         bulOp = 1;
         isinvicible = false;
@@ -109,9 +109,10 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
         ani.SetBool("jump", jump);
         if (jump)
         {
-            jumptimer++;
+            jumptimer += Time.deltaTime;
             if (jumptimer > maxjumptime)
             {
+                jumptimer = 0;
                 jump = false;
             }
             else
@@ -136,13 +137,14 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
                 float ry = Random.Range(0, 0.06f);
                 vector3 = new Vector3(rx, ry);
             }
-            firetime++;
+            firetime += Time.deltaTime;
             switch (bulOp)
             {
                 case 1:
                     {
-                        if (buttlenum % 10 == 0 && firetime > maxfiretime)
+                        if (firetime > maxfiretime)
                         {
+                            firetime -= maxfiretime;
                             var b = PhotonNetwork.Instantiate("Projectile_Blaster 2", aim1.transform.position, Quaternion.identity, 0);
                             b.transform.position = aim1.transform.position;
                             b.transform.rotation = this.transform.rotation;
@@ -152,8 +154,9 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
                     }
                 case 2:
                     {
-                        if (buttlenum % 40 == 0 && firetime > maxfiretime)
+                        if (firetime > maxfiretime)
                         {
+                            firetime -= maxfiretime;
                             var b = PhotonNetwork.Instantiate("Projectile_Hoverbot 2", aim1.transform.position, Quaternion.identity, 0);
                             b.transform.position = aim1.transform.position;
                             b.transform.rotation = this.transform.rotation;
@@ -164,8 +167,9 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
                     }
                 case 3:
                     {
-                        if (buttlenum % 40 == 0 && firetime > maxfiretime)
+                        if (firetime > maxfiretime*2)
                         {
+                            firetime -= maxfiretime;
                             var b = PhotonNetwork.Instantiate("Projectile_Shotgun 2", aim1.transform.position, Quaternion.identity, 0);
                             b.transform.position = aim1.transform.position;
                             b.transform.rotation = this.transform.rotation;
@@ -175,8 +179,9 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
                     }
                 case 4:
                     {
-                        if (buttlenum % 100 == 0 && firetime > maxfiretime)
+                        if (firetime > maxfiretime*1.5)
                         {
+                            firetime -= maxfiretime;
                             var b = PhotonNetwork.Instantiate("Projectile_Turret 2", aim1.transform.position, Quaternion.identity, 0);
                             b.transform.position = aim1.transform.position;
                             b.transform.rotation = this.transform.rotation;
@@ -201,20 +206,6 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
         cc.Move(transform.right * Time.deltaTime * Input.GetAxis("Horizontal") * speed);
 
         this.transform.Rotate(new Vector3(0, Input.GetAxis("Mouse X") * mousesense, 0));
-
-        /*
-         * float MoveY = Input.GetAxis("Mouse Y");
-        if (this.transform.rotation.eulerAngles.x < anglelimit || this.transform.rotation.eulerAngles.x > 360-anglelimit)
-        {
-            Vector3 v = new Vector3(MoveY, 0, 0);
-            this.transform.Rotate(v, Space.Self);
-
-            if (!(this.transform.rotation.eulerAngles.x < anglelimit || this.transform.rotation.eulerAngles.x > 360-anglelimit))
-            {
-                this.transform.Rotate(new Vector3(-MoveY, 0, 0), Space.Self);
-            }
-        }
-         */
 
         ani.SetBool("move", move);
         ani.SetBool("movex", movex);
@@ -394,10 +385,7 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
             isinvicible = true;
             hpdelay = 0;
         }
-        Debug.Log(health);
-        Debug.Log(amount);
         health = health + amount;
-        Debug.Log(health);
         hpImgChange();
     }
 }

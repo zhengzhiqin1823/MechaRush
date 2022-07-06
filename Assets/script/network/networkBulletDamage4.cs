@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-public class networkBulletDamage : MonoBehaviourPun
-{ // Start is called before the first frame update
-    public int damage=10;
+public class networkBulletDamage4 : MonoBehaviourPun
+{
+    // Start is called before the first frame update
+    public int damage = 10;
     public bool explosion = false;
-
     private void OnCollisionEnter(Collision other)
     {
         Debug.Log(explosion);
@@ -26,4 +26,5 @@ public class networkBulletDamage : MonoBehaviourPun
             cc.healthChange(-10);
         }
     }
+    
 }

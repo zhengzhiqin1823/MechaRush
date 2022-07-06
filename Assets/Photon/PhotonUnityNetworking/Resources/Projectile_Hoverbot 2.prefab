@@ -113,6 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   explosion: 0
+  exp: {fileID: 0}
 --- !u!114 &-2017689660012725085
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -200,6 +201,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   explosion: 0
+  timer: 0
+  maxtime: 0
 --- !u!1 &5564024855854763701
 GameObject:
   m_ObjectHideFlags: 0

@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Photon.Pun;
-public class networkBulletDamage : MonoBehaviourPun
-{ // Start is called before the first frame update
-    public int damage=10;
+public class networkBulletDamage3 : MonoBehaviourPun
+{
+    // Start is called before the first frame update
+    public int damage = 10;
     public bool explosion = false;
 
     private void OnCollisionEnter(Collision other)
@@ -23,7 +24,7 @@ public class networkBulletDamage : MonoBehaviourPun
         if (obj.transform.tag.Equals("Player"))
         {
             networkCharaCtr cc = obj.GetComponent<networkCharaCtr>();
-            cc.healthChange(-10);
+            cc.healthChange(-20);
         }
     }
 }

@@ -5,14 +5,14 @@ using UnityEngine;
 public class networkexporsion : MonoBehaviour
 {
     // Start is called before the first frame update
-    public int maxtime;
-    public int timer;
+    public float maxtime;
+    public float timer;
     public GameObject range;
     private bool ret = false;
     // Start is called before the first frame update
     void Start()
     {
-        maxtime = 200;
+        maxtime = 0.5f;
         timer = 0;
         this.GetComponent<networkexporsionDamage>().enabled = false;
     }
@@ -23,7 +23,7 @@ public class networkexporsion : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        timer++;
+        timer+=Time.deltaTime;
         if (timer > maxtime)
         {
             range.SetActive(true);
