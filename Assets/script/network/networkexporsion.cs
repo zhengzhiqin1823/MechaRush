@@ -1,8 +1,8 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
-public class networkexporsion : MonoBehaviour
+using Photon.Pun;
+public class networkexporsion : MonoBehaviourPun
 {
     // Start is called before the first frame update
     public float maxtime;
@@ -38,7 +38,7 @@ public class networkexporsion : MonoBehaviour
         }
         if (timer > 2 * maxtime)
         {
-            GameObject.Destroy(this.gameObject);
+            PhotonNetwork.Destroy(this.gameObject);
         }
     }
 }

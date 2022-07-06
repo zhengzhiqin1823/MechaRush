@@ -173,7 +173,7 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
                             var b = PhotonNetwork.Instantiate("Projectile_Shotgun 2", aim1.transform.position, Quaternion.identity, 0);
                             b.transform.position = aim1.transform.position;
                             b.transform.rotation = this.transform.rotation;
-                            b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 10;
+                            b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 30;
                         }
                         break;
                     }

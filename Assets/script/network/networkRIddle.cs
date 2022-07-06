@@ -19,11 +19,15 @@ public class networkRIddle : MonoBehaviourPun
     // Update is called once per frame
     void Update()
     {
-        process += Time.deltaTime;
+        if (!photonView.IsMine)
+            return;
+        process += (Time.deltaTime*0.2f);
         if (Input.GetKeyDown(KeyCode.F))
         {
+            if (process < 0.2f)
+                return;
             float x = Random.Range(0, process);
-            if (x < 0.2 + process * 0.4)
+            if (x < 0.2 + process * 0.1)
             {
                 var b = PhotonNetwork.Instantiate("exporsion", this.transform.position + transform.forward * 2 + transform.right, Quaternion.identity, 0);
             }
@@ -33,11 +37,11 @@ public class networkRIddle : MonoBehaviourPun
                 {
                     var b = PhotonNetwork.Instantiate("energy", this.transform.position + transform.forward * 2 + transform.right, Quaternion.identity, 0);
                 }
-                if (x < 0.7 * process)
+               else if (x < 0.7 * process)
                 {
                     var b = PhotonNetwork.Instantiate("bulChange2", this.transform.position + transform.forward * 2 + transform.right, Quaternion.identity, 0);
                 }
-                if (x < 0.9 * process)
+                else if (x < 0.9 * process)
                 {
                     var b = PhotonNetwork.Instantiate("bulChange3", this.transform.position + transform.forward * 2 + transform.right, Quaternion.identity, 0);
                 }

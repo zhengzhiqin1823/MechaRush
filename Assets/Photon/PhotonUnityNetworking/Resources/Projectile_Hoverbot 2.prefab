@@ -201,8 +201,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   damage: 0
   explosion: 0
-  timer: 0
-  maxtime: 0
 --- !u!1 &5564024855854763701
 GameObject:
   m_ObjectHideFlags: 0

@@ -36,7 +36,7 @@ public class networkChange4 : MonoBehaviour
         if (obj.transform.tag.Equals("Player"))
         {
             networkCharaCtr cc = obj.GetComponent<networkCharaCtr>();
-            cc.changeBul(4);
+            cc.changeBul(1);
             GameObject.Destroy(this.gameObject);
         }
     }
