@@ -21,7 +21,7 @@ public class networkRIddle : MonoBehaviourPun
     {
         if (!photonView.IsMine)
             return;
-        process += (Time.deltaTime*0.2f);
+        process += (Time.deltaTime*0.1f);
         if (Input.GetKeyDown(KeyCode.F))
         {
             if (process < 0.2f)

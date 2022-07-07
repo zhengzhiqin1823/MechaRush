@@ -18,8 +18,8 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
     private bool gronded;//是否在地面上
     //控制装弹
     private bool reload;
-    public int reloadtimer;
-    public int maxreloadtime;
+    public float reloadtimer;
+    public float maxreloadtime;
     public int buttlenum;
     public int maxbuttlenum;
     public Image bul;
@@ -65,10 +65,10 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
         maxjumptime = 0.9f;
         jumptimer = 0;
         reload = false;
-        reloadtimer = 0;
-        maxreloadtime = 400;
-        buttlenum = 800;
-        maxbuttlenum = 800;
+        reloadtimer = 0f;
+        maxreloadtime = 2f;
+        buttlenum = 50;
+        maxbuttlenum = 50;
         speed = 4f;
         run = false;
         if (photonView.IsMine)
@@ -150,6 +150,7 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
                             b.transform.position = aim1.transform.position;
                             b.transform.rotation = this.transform.rotation;
                             b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 50;
+                            buttlenum--;
                         }
                         break;
                     }
@@ -161,9 +162,9 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
                             var b = PhotonNetwork.Instantiate("Projectile_Hoverbot 2", aim1.transform.position, Quaternion.identity, 0);
                             b.transform.position = aim1.transform.position;
                             b.transform.rotation = this.transform.rotation;
-                            b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 50;
+                            b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 100;
+                            buttlenum--;
                         }
-
                         break;
                     }
                 case 3:
@@ -175,27 +176,28 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
                             b.transform.position = aim1.transform.position;
                             b.transform.rotation = this.transform.rotation;
                             b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 30;
+                            buttlenum--;
                         }
                         break;
                     }
                 case 4:
                     {
-                        if (firetime > maxfiretime*1.5)
+                        if (firetime > maxfiretime)
                         {
                             firetime -= maxfiretime;
                             var b = PhotonNetwork.Instantiate("Projectile_Turret 2", aim1.transform.position, Quaternion.identity, 0);
                             b.transform.position = aim1.transform.position;
                             b.transform.rotation = this.transform.rotation;
-                            b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 10;
+                            b.GetComponent<Rigidbody>().velocity = (transform.forward + vector3) * 30;
+                            buttlenum--;
                         }
                         break;
                     }
             }
-            buttlenum--;
         }
         if (reload)
         {
-            reloadtimer++;
+            reloadtimer+= Time.deltaTime;
             if (reloadtimer >= maxreloadtime)
             {
                 buttlenum = maxbuttlenum;
