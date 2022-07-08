@@ -91,9 +91,9 @@ public class networkCharaCtr : MonoBehaviourPunCallbacks
     // Update is called once per frame
     void Update()
     {
-        ShowMouse(false);
         if (!photonView.IsMine)
             return;
+        ShowMouse(false);
         bulletImgChange(5);
         hpImgChange();
         if (die || ret)
